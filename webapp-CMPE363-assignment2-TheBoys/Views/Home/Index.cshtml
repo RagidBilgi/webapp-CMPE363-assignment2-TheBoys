@@ -1,0 +1,50 @@
+﻿@model webapp_CMPE363_assignment2_TheBoys.Models.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<br /><br />
+
+<p>  There are @Model.Employees.Count employess</p>
+
+<form asp-controller="Home" asp-action="Index" method="post">
+    <p>
+        Search: <input type="text" name="empname" id="empname" value="@ViewBag.empname" placeholder="Search by employee name">
+        <input type="submit" value="Search" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Employees)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpSurname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpPhone)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Delete","Delete",new { id = item.EmpId } , new { onclick="return confirm('Are you sure you want to delete this employee ?');"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
